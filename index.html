@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Western Frontier Investments Inc - We Buy Houses for Cash | Sell Your Home Fast</title>
+    <meta name="description" content="Western Frontier Investments Inc buys houses for cash in any condition. Get a fair, no-obligation offer within 24 hours. No repairs, no fees, no hassle.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+
+        .text-shadow-luxury {
+            text-shadow: 0 4px 20px rgba(15, 23, 42, 0.4), 0 2px 8px rgba(15, 23, 42, 0.3);
+        }
+
+        .gradient-primary {
+            background: linear-gradient(135deg, #c28a29 0%, #cc5a2d 50%, #c28a29 100%);
+        }
+
+        .gradient-accent {
+            background: linear-gradient(135deg, #cc5a2d 0%, #c28a29 50%, #cc5a2d 100%);
+        }
+
+        .gradient-dark {
+            background: linear-gradient(135deg, #382518 0%, #4a3020 50%, #382518 100%);
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(1deg); }
+            66% { transform: translateY(-5px) rotate(-1deg); }
+        }
+
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from {
+                box-shadow: 0 0 20px rgba(194, 138, 41, 0.4);
+            }
+            to {
+                box-shadow: 0 0 40px rgba(194, 138, 41, 0.8), 0 0 60px rgba(194, 138, 41, 0.4);
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #c28a29, #cc5a2d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pattern-overlay {
+            background-image: radial-gradient(circle at 25% 25%, rgba(194, 138, 41, 0.1) 0%, transparent 50%),
+                             radial-gradient(circle at 75% 75%, rgba(204, 90, 45, 0.1) 0%, transparent 50%);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#382518',
+                        'brand-dark-light': '#4a3020',
+                        'brand-primary': '#c28a29',
+                        'brand-primary-dark': '#a67422',
+                        'brand-accent': '#cc5a2d',
+                        'brand-accent-light': '#d97045',
+                        'brand-light': '#f8fafc',
+                        'brand-cream': '#fefefe',
+                        'brand-gray': '#f1f5f9'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-inter bg-brand-light">
+    <!-- Navigation -->
+    <nav class="bg-white/95 backdrop-blur-sm shadow-lg fixed w-full transition-all duration-300" style="z-index: 50;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between min-h-16 sm:h-20 items-center py-2">
+                <div class="flex-shrink-0">
+                    <div class="flex items-center space-x-2 sm:space-x-4">
+                        <div class="w-10 h-10 sm:w-14 sm:h-14 gradient-primary rounded-2xl flex items-center justify-center shadow-xl pulse-glow flex-shrink-0">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                        </div>
+                        <div class="min-w-0">
+                            <h1 class="font-playfair text-base sm:text-2xl lg:text-3xl font-bold gradient-text leading-tight">
+                                Western Frontier Investments
+                            </h1>
+                            <p class="text-xs text-brand-primary uppercase tracking-wider font-semibold hidden sm:block">We Buy Houses for Cash</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden lg:flex space-x-6 items-center">
+                    <a href="#services" class="text-gray-700 hover:text-brand-primary transition-all duration-300 font-semibold text-base relative group">
+                        How It Works
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#about" class="text-gray-700 hover:text-brand-primary transition-all duration-300 font-semibold text-base relative group">
+                        Why Choose Us?
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#contact" class="text-gray-700 hover:text-brand-primary transition-all duration-300 font-semibold text-base relative group">
+                        Get My Offer
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="joint-ventures.html" class="text-brand-primary hover:text-brand-primary-dark transition-all duration-300 font-semibold text-base relative group">
+                        Joint Ventures
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-primary-dark transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 p-3 rounded-xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-brand-primary flex-shrink-0">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden bg-white/95 backdrop-blur-sm shadow-lg border-t">
+            <div class="px-4 py-4 space-y-1">
+                <a href="#services" class="block text-gray-700 hover:text-brand-primary hover:bg-gray-50 transition-colors font-semibold py-3 px-2 rounded-lg">How It Works</a>
+                <a href="#about" class="block text-gray-700 hover:text-brand-primary hover:bg-gray-50 transition-colors font-semibold py-3 px-2 rounded-lg">Why Choose Us?</a>
+                <a href="#contact" class="block text-gray-700 hover:text-brand-primary hover:bg-gray-50 transition-colors font-semibold py-3 px-2 rounded-lg">Get My Offer</a>
+                <a href="joint-ventures.html" class="block text-brand-primary hover:text-brand-primary-dark hover:bg-amber-50 transition-colors font-semibold py-3 px-2 rounded-lg">Joint Ventures</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-20 sm:pt-32 pb-20 gradient-dark text-white overflow-hidden">
+        <div class="absolute inset-0 pattern-overlay"></div>
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 left-10 w-40 h-40 gradient-primary rounded-full animate-float"></div>
+            <div class="absolute bottom-20 right-20 w-32 h-32 gradient-accent rounded-full animate-float" style="animation-delay: -2s;"></div>
+            <div class="absolute top-40 right-40 w-24 h-24 gradient-primary rounded-full animate-float" style="animation-delay: -4s;"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="flex-1 text-center lg:text-left">
+                    <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-bold mb-6 text-shadow-luxury leading-tight">
+                        Sell Your House <span class="text-brand-primary">Fast for Cash</span>
+                    </h2>
+                    <p class="text-lg sm:text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Get a fair cash offer within 24 hours. No repairs, no fees, no hassle. We buy houses in any condition.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contact" class="gradient-primary text-white px-8 py-4 rounded-xl text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 inline-block pulse-glow">
+                            Get My Cash Offer
+                        </a>
+                        <a href="tel:+1234567890" class="bg-white text-brand-primary px-8 py-4 rounded-xl text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 inline-block">
+                            📞 Call Now
+                        </a>
+                    </div>
+                    <div class="mt-8 flex flex-wrap gap-6 justify-center lg:justify-start text-sm">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-brand-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>No Repairs Needed</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-brand-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Close in 7-21 Days</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-brand-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Zero Fees or Commissions</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 lg:block hidden">
+                    <div class="relative">
+                        <div class="absolute inset-0 gradient-primary opacity-20 blur-3xl"></div>
+                        <div class="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
+                            <div class="space-y-6">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center flex-shrink-0">
+                                        <span class="text-3xl">💰</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold">Fair Cash Offers</h3>
+                                        <p class="text-gray-300">Competitive prices, no lowballing</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 gradient-accent rounded-2xl flex items-center justify-center flex-shrink-0">
+                                        <span class="text-3xl">⚡</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold">Fast Closing</h3>
+                                        <p class="text-gray-300">Close on your timeline, as fast as 7 days</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center flex-shrink-0">
+                                        <span class="text-3xl">🏠</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold">Any Condition</h3>
+                                        <p class="text-gray-300">We buy houses as-is, no repairs required</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold text-brand-dark mb-4">
+                    How It Works
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Selling your house for cash is simple and straightforward with Western Frontier Investments
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8 hover-lift">
+                    <div class="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-3xl text-white font-bold">1</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Submit Your Info</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Fill out our simple form or give us a call. Tell us about your property and your situation. No obligation, no pressure.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8 hover-lift">
+                    <div class="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-3xl text-white font-bold">2</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Get Your Offer</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        We'll analyze your property and present you with a fair, no-obligation cash offer within 24 hours. No waiting around.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8 hover-lift">
+                    <div class="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-3xl text-white font-bold">3</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Close & Get Paid</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Accept our offer and choose your closing date. We handle all the paperwork and you get cash in hand. It's that simple.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="about" class="py-20 bg-gradient-to-br from-gray-50 to-amber-50/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold text-brand-dark mb-4">
+                    Why Choose Western Frontier Investments?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    We're not just another "we buy houses" company. We're your trusted partner in selling your home quickly and hassle-free.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Fair Cash Offers</h3>
+                    <p class="text-gray-600">We provide competitive, fair market cash offers with complete transparency. No lowball offers, no games.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Quick Closings</h3>
+                    <p class="text-gray-600">Need to sell fast? We can close in as little as 7 days, or on your preferred timeline. You choose.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Buy Any Condition</h3>
+                    <p class="text-gray-600">Don't spend a dime on repairs. We buy houses in any condition - as-is, where-is. No cleanup required.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Zero Fees or Commissions</h3>
+                    <p class="text-gray-600">No realtor commissions, no closing costs, no hidden fees. The offer we make is what you get in your pocket.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Local & Trusted</h3>
+                    <p class="text-gray-600">We're a local company with deep roots in the community. We treat every homeowner with respect and integrity.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">We Handle Paperwork</h3>
+                    <p class="text-gray-600">We take care of all the legal paperwork and details. You just show up to closing and collect your cash.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Situations We Help Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold text-brand-dark mb-4">
+                    We Buy Houses in Any Situation
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    No matter your circumstances, we're here to help you sell your house quickly and move forward
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-amber-50 transition-colors">
+                    <div class="text-4xl mb-3">🏚️</div>
+                    <h3 class="font-semibold text-gray-900">Inherited Property</h3>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-amber-50 transition-colors">
+                    <div class="text-4xl mb-3">💔</div>
+                    <h3 class="font-semibold text-gray-900">Divorce</h3>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-amber-50 transition-colors">
+                    <div class="text-4xl mb-3">⚖️</div>
+                    <h3 class="font-semibold text-gray-900">Foreclosure</h3>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-amber-50 transition-colors">
+                    <div class="text-4xl mb-3">🏗️</div>
+                    <h3 class="font-semibold text-gray-900">Needs Repairs</h3>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-amber-50 transition-colors">
+                    <div class="text-4xl mb-3">📦</div>
+                    <h3 class="font-semibold text-gray-900">Relocating</h3>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-amber-50 transition-colors">
+                    <div class="text-4xl mb-3">👴</div>
+                    <h3 class="font-semibold text-gray-900">Downsizing</h3>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-amber-50 transition-colors">
+                    <div class="text-4xl mb-3">🏘️</div>
+                    <h3 class="font-semibold text-gray-900">Vacant Property</h3>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-amber-50 transition-colors">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="font-semibold text-gray-900">Behind on Taxes</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mb-4">
+                    Get Your <span class="text-brand-primary">Cash Offer</span> Today
+                </h2>
+                <p class="text-xl text-gray-300">
+                    Fill out the form below and we'll contact you within 24 hours with a fair cash offer
+                </p>
+            </div>
+
+            <form id="contactForm" class="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required class="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-primary" placeholder="John">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required class="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-primary" placeholder="Smith">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-primary" placeholder="(555) 123-4567">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Email Address *</label>
+                        <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-primary" placeholder="john@example.com">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold mb-2">Property Address *</label>
+                    <input type="text" id="propertyAddress" name="propertyAddress" required class="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-primary" placeholder="123 Main Street, City, State, ZIP">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold mb-2">Tell us about your situation</label>
+                    <textarea id="situation" name="situation" rows="4" class="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-primary" placeholder="What's your timeline? Any specific concerns?"></textarea>
+                </div>
+
+                <button type="submit" class="w-full gradient-primary text-white py-4 rounded-xl text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 pulse-glow">
+                    Get My Cash Offer Now
+                </button>
+
+                <p class="text-center text-sm text-gray-400 mt-4">
+                    By submitting this form, you agree to be contacted by Western Frontier Investments Inc.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold text-xl mb-4 font-playfair">Western Frontier Investments Inc</h3>
+                    <p class="mb-4">Your trusted partner for fast, fair cash home purchases.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-brand-primary transition-colors">Facebook</a>
+                        <a href="#" class="hover:text-brand-primary transition-colors">Twitter</a>
+                        <a href="#" class="hover:text-brand-primary transition-colors">LinkedIn</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="hover:text-brand-primary transition-colors">How It Works</a></li>
+                        <li><a href="#about" class="hover:text-brand-primary transition-colors">Why Choose Us</a></li>
+                        <li><a href="#contact" class="hover:text-brand-primary transition-colors">Get My Offer</a></li>
+                        <li><a href="joint-ventures.html" class="hover:text-brand-primary transition-colors">Joint Ventures</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li>📞 Phone: (555) 123-4567</li>
+                        <li>📧 Email: info@westernfrontier.com</li>
+                        <li>📍 Serving Texas & California</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p>&copy; 2024 Western Frontier Investments Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

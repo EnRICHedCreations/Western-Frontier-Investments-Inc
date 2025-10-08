@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Western Frontier Investments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+
+        .tab-button {
+            border-bottom: 2px solid transparent;
+            color: #6b7280;
+        }
+
+        .tab-button.active {
+            border-bottom-color: #f59e0b;
+            color: #f59e0b;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-primary': '#f59e0b',
+                        'brand-primary-dark': '#b45309'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-xl font-playfair font-bold text-gray-900">Western Frontier Dashboard</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">Welcome, <span id="username" class="font-semibold"></span></span>
+                    <a href="index.html" class="text-gray-600 hover:text-brand-primary text-sm">Public Site</a>
+                    <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors text-sm">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-blue-100 rounded-lg">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Total Seller Leads</p>
+                        <p class="text-2xl font-semibold text-gray-900" id="totalSellerLeads">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-green-100 rounded-lg">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">New Leads</p>
+                        <p class="text-2xl font-semibold text-gray-900" id="newLeads">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-amber-100 rounded-lg">
+                        <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">JV Submissions</p>
+                        <p class="text-2xl font-semibold text-gray-900" id="totalJVs">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-purple-100 rounded-lg">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Pending JVs</p>
+                        <p class="text-2xl font-semibold text-gray-900" id="pendingJVs">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="border-b border-gray-200 mb-8">
+            <nav class="-mb-px flex space-x-8">
+                <button onclick="showTab('seller-leads')" id="seller-leads-tab" class="tab-button active whitespace-nowrap py-4 px-1 font-medium text-sm">
+                    Seller Leads
+                </button>
+                <button onclick="showTab('joint-ventures')" id="joint-ventures-tab" class="tab-button whitespace-nowrap py-4 px-1 font-medium text-sm">
+                    Joint Ventures
+                </button>
+            </nav>
+        </div>
+
+        <!-- Seller Leads Tab -->
+        <div id="seller-leads-content" class="tab-content active">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xl font-semibold text-gray-900">Seller Leads</h2>
+                        <button onclick="refreshSellerLeads()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                            🔄 Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property Address</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Situation</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sellerLeadsTable" class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td colspan="7" class="px-6 py-12 text-center text-gray-500">
+                                    <div class="flex flex-col items-center">
+                                        <div class="text-6xl mb-4">🏠</div>
+                                        <div class="text-lg font-medium">No seller leads yet</div>
+                                        <div class="text-sm">Leads from the website will appear here</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Joint Ventures Tab -->
+        <div id="joint-ventures-content" class="tab-content">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xl font-semibold text-gray-900">Joint Venture Submissions</h2>
+                        <button onclick="refreshJVs()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                            🔄 Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Partner Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deal Address</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contract Price</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ARV</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Repairs Est.</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">JV Agreement</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jvTable" class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td colspan="9" class="px-6 py-12 text-center text-gray-500">
+                                    <div class="flex flex-col items-center">
+                                        <div class="text-6xl mb-4">🤝</div>
+                                        <div class="text-lg font-medium">No JV submissions yet</div>
+                                        <div class="text-sm">JV submissions will appear here</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="js/firebase-config.js"></script>
+
+    <script>
+        // Check authentication
+        if (sessionStorage.getItem('wfi_authenticated') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Display username
+        document.getElementById('username').textContent = sessionStorage.getItem('wfi_username') || 'User';
+
+        // Logout function
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        // Tab management
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-content').classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Load data for the tab
+            if (tabName === 'seller-leads') {
+                loadSellerLeads();
+            } else if (tabName === 'joint-ventures') {
+                loadJointVentures();
+            }
+        }
+
+        let sellerLeads = [];
+        let jointVentures = [];
+
+        // Load Seller Leads
+        async function loadSellerLeads() {
+            try {
+                sellerLeads = await CloudStorage.loadData('SellerLeads', []);
+                console.log('Loaded seller leads:', sellerLeads.length);
+                updateSellerLeadsTable();
+                updateStats();
+            } catch (error) {
+                console.error('Error loading seller leads:', error);
+            }
+        }
+
+        // Load Joint Ventures
+        async function loadJointVentures() {
+            try {
+                jointVentures = await CloudStorage.loadData('JointVentures', []);
+                console.log('Loaded JV submissions:', jointVentures.length);
+                updateJVTable();
+                updateStats();
+            } catch (error) {
+                console.error('Error loading JVs:', error);
+            }
+        }
+
+        // Update Stats
+        function updateStats() {
+            document.getElementById('totalSellerLeads').textContent = sellerLeads.length;
+            document.getElementById('newLeads').textContent = sellerLeads.filter(l => l.status === 'new').length;
+            document.getElementById('totalJVs').textContent = jointVentures.length;
+            document.getElementById('pendingJVs').textContent = jointVentures.filter(j => j.status === 'pending').length;
+        }
+
+        // Update Seller Leads Table
+        function updateSellerLeadsTable() {
+            const tbody = document.getElementById('sellerLeadsTable');
+
+            if (sellerLeads.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="px-6 py-12 text-center text-gray-500">
+                            <div class="flex flex-col items-center">
+                                <div class="text-6xl mb-4">🏠</div>
+                                <div class="text-lg font-medium">No seller leads yet</div>
+                                <div class="text-sm">Leads from the website will appear here</div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            // Sort by date (newest first)
+            const sorted = [...sellerLeads].sort((a, b) => new Date(b.dateSubmitted) - new Date(a.dateSubmitted));
+
+            tbody.innerHTML = sorted.map(lead => {
+                const statusColors = {
+                    'new': 'bg-green-100 text-green-800',
+                    'contacted': 'bg-blue-100 text-blue-800',
+                    'in-progress': 'bg-yellow-100 text-yellow-800',
+                    'closed': 'bg-purple-100 text-purple-800'
+                };
+                const statusColor = statusColors[lead.status] || statusColors['new'];
+
+                return `
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">${lead.firstName} ${lead.lastName}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-900">${lead.email}</div>
+                            <div class="text-sm text-gray-500">${lead.phone}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-900">${lead.propertyAddress}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-500">${lead.situation || 'N/A'}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${statusColor}">
+                                ${lead.status || 'new'}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${new Date(lead.dateSubmitted).toLocaleDateString()}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            <a href="mailto:${lead.email}" class="text-blue-600 hover:text-blue-900 mr-3">Email</a>
+                            <a href="tel:${lead.phone}" class="text-green-600 hover:text-green-900">Call</a>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Update JV Table
+        function updateJVTable() {
+            const tbody = document.getElementById('jvTable');
+
+            if (jointVentures.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="px-6 py-12 text-center text-gray-500">
+                            <div class="flex flex-col items-center">
+                                <div class="text-6xl mb-4">🤝</div>
+                                <div class="text-lg font-medium">No JV submissions yet</div>
+                                <div class="text-sm">JV submissions will appear here</div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            // Sort by date (newest first)
+            const sorted = [...jointVentures].sort((a, b) => new Date(b.dateSubmitted) - new Date(a.dateSubmitted));
+
+            tbody.innerHTML = sorted.map(jv => {
+                const statusColors = {
+                    'pending': 'bg-yellow-100 text-yellow-800',
+                    'approved': 'bg-green-100 text-green-800',
+                    'in-progress': 'bg-blue-100 text-blue-800',
+                    'closed': 'bg-purple-100 text-purple-800',
+                    'declined': 'bg-red-100 text-red-800'
+                };
+                const statusColor = statusColors[jv.status] || statusColors['pending'];
+                const jvBadge = jv.jvAgreement === 'yes'
+                    ? '<span class="text-green-600 font-semibold">✓ Yes</span>'
+                    : '<span class="text-red-600 font-semibold">✗ No</span>';
+
+                return `
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">${jv.firstName} ${jv.lastName}</div>
+                            <div class="text-sm text-gray-500">${jv.emailAddress}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-900">${jv.dealAddress}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">$${parseInt(jv.contractPrice).toLocaleString()}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">$${parseInt(jv.arv).toLocaleString()}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">$${parseInt(jv.repairsEstimate || 0).toLocaleString()}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            ${jvBadge}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${statusColor}">
+                                ${jv.status || 'pending'}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${new Date(jv.dateSubmitted).toLocaleDateString()}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            <a href="mailto:${jv.emailAddress}" class="text-blue-600 hover:text-blue-900">Email</a>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Refresh functions
+        function refreshSellerLeads() {
+            loadSellerLeads();
+            WFIUtils.showSuccessMessage('Seller leads refreshed!');
+        }
+
+        function refreshJVs() {
+            loadJointVentures();
+            WFIUtils.showSuccessMessage('JV submissions refreshed!');
+        }
+
+        // Load initial data
+        loadSellerLeads();
+        loadJointVentures();
+
+        // Set up real-time listeners
+        CloudStorage.onDataChange('SellerLeads', (newLeads) => {
+            sellerLeads = newLeads;
+            updateSellerLeadsTable();
+            updateStats();
+        });
+
+        CloudStorage.onDataChange('JointVentures', (newJVs) => {
+            jointVentures = newJVs;
+            updateJVTable();
+            updateStats();
+        });
+    </script>
+</body>
+</html>
