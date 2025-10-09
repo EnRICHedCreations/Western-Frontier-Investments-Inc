@@ -120,6 +120,7 @@ function initJVForm() {
             contractPrice: document.getElementById('contractPrice').value,
             arv: document.getElementById('arv').value,
             repairsEstimate: document.getElementById('repairsEstimate').value,
+            phoneNumber: document.getElementById('phoneNumber').value,
             emailAddress: document.getElementById('emailAddress').value,
             dateSubmitted: new Date().toISOString(),
             status: 'pending'
@@ -127,8 +128,16 @@ function initJVForm() {
 
         // Basic validation
         if (!jvData.firstName || !jvData.lastName || !jvData.dealAddress || !jvData.jvAgreement ||
-            !jvData.contractPrice || !jvData.arv || !jvData.repairsEstimate || !jvData.emailAddress) {
+            !jvData.contractPrice || !jvData.arv || !jvData.repairsEstimate || !jvData.phoneNumber || !jvData.emailAddress) {
             WFIUtils.showErrorMessage('Please fill in all required fields');
+            submitButton.innerHTML = originalText;
+            submitButton.disabled = false;
+            return;
+        }
+
+        // Validate phone
+        if (!WFIUtils.validatePhone(jvData.phoneNumber)) {
+            WFIUtils.showErrorMessage('Please enter a valid phone number');
             submitButton.innerHTML = originalText;
             submitButton.disabled = false;
             return;
