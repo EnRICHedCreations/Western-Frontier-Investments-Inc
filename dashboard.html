@@ -127,12 +127,18 @@
 
         <!-- Tabs -->
         <div class="border-b border-gray-200 mb-8">
-            <nav class="-mb-px flex space-x-8">
+            <nav class="-mb-px flex flex-wrap space-x-4 gap-y-2">
                 <button onclick="showTab('seller-leads')" id="seller-leads-tab" class="tab-button active whitespace-nowrap py-4 px-1 font-medium text-sm">
                     Seller Leads
                 </button>
                 <button onclick="showTab('joint-ventures')" id="joint-ventures-tab" class="tab-button whitespace-nowrap py-4 px-1 font-medium text-sm">
                     Joint Ventures
+                </button>
+                <button onclick="showTab('land-buyers')" id="land-buyers-tab" class="tab-button whitespace-nowrap py-4 px-1 font-medium text-sm">
+                    Land Buyers
+                </button>
+                <button onclick="showTab('land-jvs')" id="land-jvs-tab" class="tab-button whitespace-nowrap py-4 px-1 font-medium text-sm">
+                    Land JVs
                 </button>
             </nav>
         </div>
@@ -219,6 +225,189 @@
                 </div>
             </div>
         </div>
+
+        <!-- Land JVs Tab -->
+        <div id="land-jvs-content" class="tab-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Land Joint Ventures</h2>
+                <button onclick="refreshLandJVs()" class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors">
+                    Refresh
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-blue-100 rounded-lg">
+                            <div class="text-blue-600 text-2xl">📋</div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Land Leads</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="totalLandLeadsCount">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-yellow-100 rounded-lg">
+                            <div class="text-yellow-600 text-2xl">⏳</div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">New Leads</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="newLandLeadsCount">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-green-100 rounded-lg">
+                            <div class="text-green-600 text-2xl">✅</div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Matched</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="matchedLandLeadsCount">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-purple-100 rounded-lg">
+                            <div class="text-purple-600 text-2xl">💰</div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Value</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="totalLandValue">$0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <input type="text" id="landJVSearchInput" placeholder="Search land leads..." class="border border-gray-300 rounded-lg px-3 py-2 w-64" oninput="searchLandJVs()">
+                        <button onclick="exportLandJVs()" class="px-4 py-2 text-sm bg-gray-100 rounded-lg hover:bg-gray-200">Export CSV</button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property Address</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acreage</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Land Type</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price/Acre</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Price</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Matched Buyer</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="landJVsTable" class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td colspan="9" class="px-6 py-12 text-center text-gray-500">
+                                    <div class="flex flex-col items-center">
+                                        <div class="text-6xl mb-4">🌳</div>
+                                        <div class="text-lg font-medium">No land leads yet</div>
+                                        <div class="text-sm">Land submissions will appear here</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Land Buyers Tab -->
+        <div id="land-buyers-content" class="tab-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Land Buyers</h2>
+                <button onclick="showAddLandBuyerModal()" class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors">
+                    Add Land Buyer
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-green-100 rounded-lg">
+                            <div class="text-green-600 text-2xl">🌳</div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Land Buyers</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="totalLandBuyersCount">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-blue-100 rounded-lg">
+                            <div class="text-blue-600 text-2xl">📍</div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Active Markets</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="activeMarketsCount">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-purple-100 rounded-lg">
+                            <div class="text-purple-600 text-2xl">💰</div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Avg. Budget</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="avgLandBudget">$0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <input type="text" id="landBuyerSearchInput" placeholder="Search land buyers..." class="border border-gray-300 rounded-lg px-3 py-2 w-64" oninput="searchLandBuyers()">
+                        <button onclick="exportLandBuyers()" class="px-4 py-2 text-sm bg-gray-100 rounded-lg hover:bg-gray-200">Export CSV</button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name/Company</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Target States</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acreage Range</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Budget Range</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Land Types</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="landBuyersTable" class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td colspan="8" class="px-6 py-12 text-center text-gray-500">
+                                    <div class="flex flex-col items-center">
+                                        <div class="text-6xl mb-4">🌳</div>
+                                        <div class="text-lg font-medium">No land buyers yet</div>
+                                        <div class="text-sm">Click "Add Land Buyer" to get started</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- View/Edit Modal -->
@@ -230,6 +419,248 @@
             </div>
             <div id="modalContent" class="p-6">
                 <!-- Content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Land Buyer Modal -->
+    <div id="addLandBuyerModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-8 m-4 w-full max-w-5xl max-h-screen overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-primary">Add Land Buyer - Full Buy Box Criteria</h3>
+                <button onclick="hideAddLandBuyerModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <form onsubmit="addLandBuyer(event)">
+                <!-- Contact Information -->
+                <h4 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Contact Information</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Contact Name *</label>
+                        <input type="text" id="landBuyerName" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Company/Entity *</label>
+                        <input type="text" id="landBuyerCompany" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Phone *</label>
+                        <input type="tel" id="landBuyerPhone" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Email *</label>
+                        <input type="email" id="landBuyerEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Status</label>
+                        <select id="landBuyerStatus" class="w-full px-4 py-3 border border-gray-300 rounded-lg">
+                            <option value="active">Active</option>
+                            <option value="warm">Warm Lead</option>
+                            <option value="cold">Cold</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Geographic Criteria -->
+                <h4 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Geographic Criteria</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Target States (comma-separated) *</label>
+                        <input type="text" id="landBuyerStates" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="TX, CA, FL" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Target Counties (comma-separated)</label>
+                        <input type="text" id="landBuyerCounties" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Travis, Harris, Dallas">
+                    </div>
+                </div>
+
+                <!-- Land Specifications -->
+                <h4 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Land Specifications</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Min Acreage *</label>
+                        <input type="number" id="landBuyerMinAcres" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="1" step="0.01" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Max Acreage *</label>
+                        <input type="number" id="landBuyerMaxAcres" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="100" step="0.01" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Preferred Acreage</label>
+                        <input type="number" id="landBuyerPreferredAcres" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="10" step="0.01">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Land Type(s) *</label>
+                        <select id="landBuyerType" multiple class="w-full px-4 py-3 border border-gray-300 rounded-lg" size="4" required>
+                            <option value="residential">Residential</option>
+                            <option value="agricultural">Agricultural</option>
+                            <option value="recreational">Recreational</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="ranch">Ranch/Farm</option>
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple</p>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Terrain Preference</label>
+                        <select id="landBuyerTerrain" multiple class="w-full px-4 py-3 border border-gray-300 rounded-lg" size="4">
+                            <option value="flat">Flat</option>
+                            <option value="rolling">Rolling Hills</option>
+                            <option value="wooded">Wooded</option>
+                            <option value="cleared">Cleared</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Budget & Financial Criteria -->
+                <h4 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Budget & Financial Criteria</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Min Budget *</label>
+                        <input type="number" id="landBuyerMinBudget" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="10000" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Max Budget *</label>
+                        <input type="number" id="landBuyerMaxBudget" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="500000" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Price Per Acre Target</label>
+                        <input type="number" id="landBuyerPricePerAcre" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="5000">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">Additional Notes</label>
+                    <textarea id="landBuyerNotes" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Any other requirements or preferences..."></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="hideAddLandBuyerModal()" class="px-6 py-3 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors">
+                        Add Land Buyer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Land JV View Modal -->
+    <div id="landJVViewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-gradient-to-r from-amber-500 to-orange-600 text-white px-6 py-4 flex justify-between items-center rounded-t-2xl">
+                <h3 class="text-2xl font-playfair font-bold">🌳 Land Lead Details</h3>
+                <button onclick="hideLandJVViewModal()" class="text-white hover:text-gray-200 text-2xl">&times;</button>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <!-- Contact Information -->
+                <div class="bg-blue-50 rounded-lg p-5 border-l-4 border-blue-500">
+                    <h4 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">👤</span> Contact Information
+                    </h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600">Name</p>
+                            <p class="font-semibold text-gray-900" id="viewLandJVName">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Email</p>
+                            <p class="font-semibold text-gray-900" id="viewLandJVEmail">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Phone</p>
+                            <p class="font-semibold text-gray-900" id="viewLandJVPhone">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Status</p>
+                            <p class="font-semibold" id="viewLandJVStatus">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Details -->
+                <div class="bg-green-50 rounded-lg p-5 border-l-4 border-green-500">
+                    <h4 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">🏞️</span> Property Details
+                    </h4>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-sm text-gray-600">Property Address</p>
+                            <p class="font-semibold text-gray-900" id="viewLandJVAddress">-</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm text-gray-600">Acreage</p>
+                                <p class="font-semibold text-gray-900" id="viewLandJVAcreage">-</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-600">Land Type</p>
+                                <p class="font-semibold text-gray-900" id="viewLandJVLandType">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Details -->
+                <div class="bg-amber-50 rounded-lg p-5 border-l-4 border-amber-500">
+                    <h4 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">💰</span> Financial Details
+                    </h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600">Price per Acre</p>
+                            <p class="text-xl font-semibold text-amber-600" id="viewLandJVPricePerAcre">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Total Asking Price</p>
+                            <p class="text-2xl font-bold text-amber-600" id="viewLandJVPrice">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Matched Buyer -->
+                <div class="bg-purple-50 rounded-lg p-5 border-l-4 border-purple-500" id="viewLandJVMatchedBuyerSection">
+                    <h4 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">🤝</span> Matched Buyer
+                    </h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600">Company</p>
+                            <p class="font-semibold text-gray-900" id="viewLandJVBuyerCompany">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Contact</p>
+                            <p class="font-semibold text-gray-900" id="viewLandJVBuyerContact">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Notes -->
+                <div class="bg-gray-50 rounded-lg p-5 border-l-4 border-gray-400" id="viewLandJVNotesSection">
+                    <h4 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">📝</span> Additional Notes
+                    </h4>
+                    <p class="text-gray-700" id="viewLandJVNotes">-</p>
+                </div>
+
+                <!-- Submission Info -->
+                <div class="text-sm text-gray-500 text-center pt-4 border-t">
+                    <p>Submitted on <span id="viewLandJVDate" class="font-semibold">-</span></p>
+                </div>
+            </div>
+
+            <div class="sticky bottom-0 bg-white border-t px-6 py-4 flex justify-end space-x-3 rounded-b-2xl">
+                <button onclick="hideLandJVViewModal()" class="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                    Close
+                </button>
+                <button onclick="editLandJVFromView()" class="px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors">
+                    Edit Status
+                </button>
             </div>
         </div>
     </div>
@@ -273,11 +704,17 @@
                 loadSellerLeads();
             } else if (tabName === 'joint-ventures') {
                 loadJointVentures();
+            } else if (tabName === 'land-buyers') {
+                loadLandBuyers();
+            } else if (tabName === 'land-jvs') {
+                loadLandJVs();
             }
         }
 
         let sellerLeads = [];
         let jointVentures = [];
+        let landBuyers = [];
+        let landJVs = [];
 
         // Load Seller Leads
         async function loadSellerLeads() {
@@ -817,9 +1254,634 @@
             }
         }
 
+        // ========================================
+        // LAND BUYERS FUNCTIONS
+        // ========================================
+
+        // Load Land Buyers
+        async function loadLandBuyers() {
+            try {
+                landBuyers = await CloudStorage.loadData('LandBuyers', []);
+                console.log('Loaded land buyers:', landBuyers.length);
+                updateLandBuyersTable();
+                updateLandBuyersStats();
+            } catch (error) {
+                console.error('Error loading land buyers:', error);
+            }
+        }
+
+        // Show/Hide Land Buyer Modal
+        function showAddLandBuyerModal() {
+            document.getElementById('addLandBuyerModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideAddLandBuyerModal() {
+            document.getElementById('addLandBuyerModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Add Land Buyer
+        async function addLandBuyer(event) {
+            event.preventDefault();
+
+            const landTypes = Array.from(document.getElementById('landBuyerType').selectedOptions).map(opt => opt.value);
+            const terrainPrefs = Array.from(document.getElementById('landBuyerTerrain').selectedOptions).map(opt => opt.value);
+
+            const newLandBuyer = {
+                id: Date.now(),
+                name: document.getElementById('landBuyerName').value,
+                company: document.getElementById('landBuyerCompany').value,
+                phone: document.getElementById('landBuyerPhone').value,
+                email: document.getElementById('landBuyerEmail').value,
+                status: document.getElementById('landBuyerStatus').value,
+                targetStates: document.getElementById('landBuyerStates').value,
+                targetCounties: document.getElementById('landBuyerCounties').value || '',
+                minAcreage: parseFloat(document.getElementById('landBuyerMinAcres').value),
+                maxAcreage: parseFloat(document.getElementById('landBuyerMaxAcres').value),
+                preferredAcreage: parseFloat(document.getElementById('landBuyerPreferredAcres').value) || null,
+                landTypes: landTypes,
+                terrainPreference: terrainPrefs,
+                minBudget: parseInt(document.getElementById('landBuyerMinBudget').value),
+                maxBudget: parseInt(document.getElementById('landBuyerMaxBudget').value),
+                pricePerAcre: parseFloat(document.getElementById('landBuyerPricePerAcre').value) || null,
+                notes: document.getElementById('landBuyerNotes').value || '',
+                dateAdded: new Date().toISOString(),
+                lastContacted: null,
+                dealsMatched: 0
+            };
+
+            landBuyers.push(newLandBuyer);
+
+            try {
+                await CloudStorage.saveData('LandBuyers', landBuyers);
+                updateLandBuyersTable();
+                updateLandBuyersStats();
+                hideAddLandBuyerModal();
+                WFIUtils.showSuccessMessage('Land buyer added successfully!');
+                document.getElementById('addLandBuyerModal').querySelector('form').reset();
+            } catch (error) {
+                console.error('Error saving land buyer:', error);
+                WFIUtils.showErrorMessage('Failed to save land buyer');
+            }
+        }
+
+        // Update Land Buyers Table
+        function updateLandBuyersTable() {
+            const tbody = document.getElementById('landBuyersTable');
+            if (!tbody) return;
+
+            if (landBuyers.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="px-6 py-12 text-center text-gray-500">
+                            <div class="flex flex-col items-center">
+                                <div class="text-6xl mb-4">🌳</div>
+                                <div class="text-lg font-medium">No land buyers yet</div>
+                                <div class="text-sm">Click "Add Land Buyer" to get started</div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = landBuyers.map(buyer => {
+                const statusColors = {
+                    'active': 'bg-green-100 text-green-800',
+                    'warm': 'bg-yellow-100 text-yellow-800',
+                    'cold': 'bg-blue-100 text-blue-800',
+                    'inactive': 'bg-gray-100 text-gray-800'
+                };
+
+                const statusClass = statusColors[buyer.status] || statusColors['active'];
+                const landTypesDisplay = buyer.landTypes?.slice(0, 2).join(', ') + (buyer.landTypes?.length > 2 ? '...' : '');
+
+                return `
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">${buyer.name}</div>
+                            <div class="text-sm text-gray-500">${buyer.company}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-900">${buyer.email}</div>
+                            <div class="text-sm text-gray-500">${buyer.phone}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-900">${buyer.targetStates}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${buyer.minAcreage} - ${buyer.maxAcreage} ac</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">$${buyer.minBudget.toLocaleString()} - $${buyer.maxBudget.toLocaleString()}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-900">${landTypesDisplay}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+                                ${buyer.status}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button onclick="viewLandBuyer(${buyer.id})" class="text-indigo-600 hover:text-indigo-900 mr-3">View</button>
+                            <button onclick="deleteLandBuyer(${buyer.id})" class="text-red-600 hover:text-red-900">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Update Land Buyers Stats
+        function updateLandBuyersStats() {
+            const totalCount = document.getElementById('totalLandBuyersCount');
+            const activeMarketsCount = document.getElementById('activeMarketsCount');
+            const avgBudget = document.getElementById('avgLandBudget');
+
+            if (totalCount) totalCount.textContent = landBuyers.length;
+
+            if (activeMarketsCount) {
+                const uniqueStates = new Set();
+                landBuyers.forEach(buyer => {
+                    const states = buyer.targetStates.split(',').map(s => s.trim());
+                    states.forEach(state => uniqueStates.add(state));
+                });
+                activeMarketsCount.textContent = uniqueStates.size;
+            }
+
+            if (avgBudget) {
+                if (landBuyers.length > 0) {
+                    const total = landBuyers.reduce((sum, buyer) => {
+                        return sum + ((buyer.minBudget + buyer.maxBudget) / 2);
+                    }, 0);
+                    const avg = Math.round(total / landBuyers.length);
+                    avgBudget.textContent = '$' + avg.toLocaleString();
+                } else {
+                    avgBudget.textContent = '$0';
+                }
+            }
+        }
+
+        // Search Land Buyers
+        function searchLandBuyers() {
+            const searchInput = document.getElementById('landBuyerSearchInput');
+            if (!searchInput) return;
+
+            const searchTerm = searchInput.value.toLowerCase();
+
+            if (!searchTerm) {
+                updateLandBuyersTable();
+                return;
+            }
+
+            const filtered = landBuyers.filter(buyer => {
+                return buyer.name.toLowerCase().includes(searchTerm) ||
+                       buyer.company.toLowerCase().includes(searchTerm) ||
+                       buyer.email.toLowerCase().includes(searchTerm) ||
+                       buyer.targetStates.toLowerCase().includes(searchTerm) ||
+                       buyer.landTypes.some(type => type.toLowerCase().includes(searchTerm));
+            });
+
+            const tbody = document.getElementById('landBuyersTable');
+            if (!tbody) return;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="px-6 py-12 text-center text-gray-500">
+                            No land buyers found matching "${searchTerm}"
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(buyer => {
+                const statusColors = {
+                    'active': 'bg-green-100 text-green-800',
+                    'warm': 'bg-yellow-100 text-yellow-800',
+                    'cold': 'bg-blue-100 text-blue-800',
+                    'inactive': 'bg-gray-100 text-gray-800'
+                };
+
+                const statusClass = statusColors[buyer.status] || statusColors['active'];
+                const landTypesDisplay = buyer.landTypes?.slice(0, 2).join(', ') + (buyer.landTypes?.length > 2 ? '...' : '');
+
+                return `
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">${buyer.name}</div>
+                            <div class="text-sm text-gray-500">${buyer.company}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-900">${buyer.email}</div>
+                            <div class="text-sm text-gray-500">${buyer.phone}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-900">${buyer.targetStates}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${buyer.minAcreage} - ${buyer.maxAcreage} ac</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">$${buyer.minBudget.toLocaleString()} - $${buyer.maxBudget.toLocaleString()}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-gray-900">${landTypesDisplay}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+                                ${buyer.status}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button onclick="viewLandBuyer(${buyer.id})" class="text-indigo-600 hover:text-indigo-900 mr-3">View</button>
+                            <button onclick="deleteLandBuyer(${buyer.id})" class="text-red-600 hover:text-red-900">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // View Land Buyer
+        function viewLandBuyer(id) {
+            const buyer = landBuyers.find(b => b.id === id);
+            if (!buyer) return;
+
+            alert(`Land Buyer Details:\n\nName: ${buyer.name}\nCompany: ${buyer.company}\nEmail: ${buyer.email}\nPhone: ${buyer.phone}\nStatus: ${buyer.status}\n\nTarget States: ${buyer.targetStates}\nTarget Counties: ${buyer.targetCounties || 'Any'}\nAcreage: ${buyer.minAcreage} - ${buyer.maxAcreage} acres\nLand Types: ${buyer.landTypes.join(', ')}\n\nBudget: $${buyer.minBudget.toLocaleString()} - $${buyer.maxBudget.toLocaleString()}\nPrice/Acre: ${buyer.pricePerAcre ? '$' + buyer.pricePerAcre.toLocaleString() : 'N/A'}\n\nNotes: ${buyer.notes || 'None'}`);
+        }
+
+        // Delete Land Buyer
+        async function deleteLandBuyer(id) {
+            if (!confirm('Are you sure you want to delete this land buyer?')) return;
+
+            landBuyers = landBuyers.filter(b => b.id !== id);
+
+            try {
+                await CloudStorage.saveData('LandBuyers', landBuyers);
+                updateLandBuyersTable();
+                updateLandBuyersStats();
+                WFIUtils.showSuccessMessage('Land buyer deleted successfully!');
+            } catch (error) {
+                console.error('Error deleting land buyer:', error);
+                WFIUtils.showErrorMessage('Failed to delete land buyer');
+            }
+        }
+
+        // Export Land Buyers
+        function exportLandBuyers() {
+            if (landBuyers.length === 0) {
+                WFIUtils.showErrorMessage('No land buyers to export');
+                return;
+            }
+
+            const headers = ['Name', 'Company', 'Email', 'Phone', 'Status', 'Target States', 'Target Counties',
+                             'Min Acreage', 'Max Acreage', 'Preferred Acreage', 'Land Types', 'Terrain',
+                             'Min Budget', 'Max Budget', 'Price Per Acre', 'Notes', 'Date Added'];
+
+            const rows = landBuyers.map(buyer => [
+                buyer.name,
+                buyer.company,
+                buyer.email,
+                buyer.phone,
+                buyer.status,
+                buyer.targetStates,
+                buyer.targetCounties || '',
+                buyer.minAcreage,
+                buyer.maxAcreage,
+                buyer.preferredAcreage || '',
+                buyer.landTypes.join('; '),
+                buyer.terrainPreference?.join('; ') || '',
+                buyer.minBudget,
+                buyer.maxBudget,
+                buyer.pricePerAcre || '',
+                buyer.notes || '',
+                new Date(buyer.dateAdded).toLocaleDateString()
+            ]);
+
+            const csvContent = [headers, ...rows].map(row =>
+                row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')
+            ).join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `land_buyers_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+            WFIUtils.showSuccessMessage('Land buyers exported successfully!');
+        }
+
+        // ========== Land JVs Functions ==========
+
+        async function loadLandJVs() {
+            try {
+                landJVs = await CloudStorage.loadData('LandLeads', []);
+                console.log('Loaded land JVs:', landJVs.length);
+                updateLandJVsTable();
+                updateLandJVsStats();
+            } catch (error) {
+                console.error('Error loading land JVs:', error);
+            }
+        }
+
+        function updateLandJVsTable() {
+            const tbody = document.getElementById('landJVsTable');
+
+            if (landJVs.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="px-6 py-12 text-center text-gray-500">
+                            <div class="flex flex-col items-center">
+                                <div class="text-6xl mb-4">🌳</div>
+                                <div class="text-lg font-medium">No land leads yet</div>
+                                <div class="text-sm">Land submissions will appear here</div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = landJVs.map(jv => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900">${jv.firstName} ${jv.lastName}</div>
+                        <div class="text-sm text-gray-500">${jv.email}</div>
+                        <div class="text-sm text-gray-500">${jv.phone}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-900">${jv.landAddress}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${jv.acreage} acres</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${jv.landType}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${jv.pricePerAcre ? '$' + jv.pricePerAcre.toLocaleString() : '-'}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-semibold text-gray-900">$${jv.askingPrice.toLocaleString()}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        ${jv.matchedBuyer ? `
+                            <div class="text-sm text-gray-900 font-medium">${jv.matchedBuyer.company}</div>
+                            <div class="text-xs text-gray-500">${jv.matchedBuyer.name}</div>
+                        ` : '<span class="text-sm text-gray-400">No match</span>'}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                            jv.status === 'new' ? 'bg-yellow-100 text-yellow-800' :
+                            jv.status === 'contacted' ? 'bg-blue-100 text-blue-800' :
+                            jv.status === 'qualified' ? 'bg-green-100 text-green-800' :
+                            'bg-gray-100 text-gray-800'
+                        }">
+                            ${jv.status}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button onclick="viewLandJV(${jv.id})" class="text-blue-600 hover:text-blue-900 mr-3">View</button>
+                        <button onclick="deleteLandJV(${jv.id})" class="text-red-600 hover:text-red-900">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateLandJVsStats() {
+            document.getElementById('totalLandLeadsCount').textContent = landJVs.length;
+
+            const newLeads = landJVs.filter(jv => jv.status === 'new').length;
+            document.getElementById('newLandLeadsCount').textContent = newLeads;
+
+            const matchedLeads = landJVs.filter(jv => jv.matchedBuyer).length;
+            document.getElementById('matchedLandLeadsCount').textContent = matchedLeads;
+
+            const totalValue = landJVs.reduce((sum, jv) => sum + (jv.askingPrice || 0), 0);
+            document.getElementById('totalLandValue').textContent = '$' + totalValue.toLocaleString();
+        }
+
+        function searchLandJVs() {
+            const searchTerm = document.getElementById('landJVSearchInput').value.toLowerCase();
+
+            const filtered = landJVs.filter(jv =>
+                jv.firstName.toLowerCase().includes(searchTerm) ||
+                jv.lastName.toLowerCase().includes(searchTerm) ||
+                jv.email.toLowerCase().includes(searchTerm) ||
+                jv.landAddress.toLowerCase().includes(searchTerm) ||
+                jv.landType.toLowerCase().includes(searchTerm) ||
+                (jv.matchedBuyer && jv.matchedBuyer.company.toLowerCase().includes(searchTerm))
+            );
+
+            const tbody = document.getElementById('landJVsTable');
+            tbody.innerHTML = filtered.map(jv => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900">${jv.firstName} ${jv.lastName}</div>
+                        <div class="text-sm text-gray-500">${jv.email}</div>
+                        <div class="text-sm text-gray-500">${jv.phone}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-900">${jv.landAddress}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${jv.acreage} acres</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${jv.landType}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${jv.pricePerAcre ? '$' + jv.pricePerAcre.toLocaleString() : '-'}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-semibold text-gray-900">$${jv.askingPrice.toLocaleString()}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        ${jv.matchedBuyer ? `
+                            <div class="text-sm text-gray-900 font-medium">${jv.matchedBuyer.company}</div>
+                            <div class="text-xs text-gray-500">${jv.matchedBuyer.name}</div>
+                        ` : '<span class="text-sm text-gray-400">No match</span>'}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                            jv.status === 'new' ? 'bg-yellow-100 text-yellow-800' :
+                            jv.status === 'contacted' ? 'bg-blue-100 text-blue-800' :
+                            jv.status === 'qualified' ? 'bg-green-100 text-green-800' :
+                            'bg-gray-100 text-gray-800'
+                        }">
+                            ${jv.status}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button onclick="viewLandJV(${jv.id})" class="text-blue-600 hover:text-blue-900 mr-3">View</button>
+                        <button onclick="deleteLandJV(${jv.id})" class="text-red-600 hover:text-red-900">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        let currentLandJVId = null;
+
+        function viewLandJV(id) {
+            const jv = landJVs.find(j => j.id === id);
+            if (!jv) return;
+
+            currentLandJVId = id;
+
+            // Populate contact information
+            document.getElementById('viewLandJVName').textContent = `${jv.firstName} ${jv.lastName}`;
+            document.getElementById('viewLandJVEmail').textContent = jv.email;
+            document.getElementById('viewLandJVPhone').textContent = jv.phone;
+
+            // Status badge
+            const statusColors = {
+                'new': 'bg-yellow-100 text-yellow-800',
+                'contacted': 'bg-blue-100 text-blue-800',
+                'qualified': 'bg-green-100 text-green-800',
+                'closed': 'bg-purple-100 text-purple-800'
+            };
+            const statusClass = statusColors[jv.status] || 'bg-gray-100 text-gray-800';
+            document.getElementById('viewLandJVStatus').innerHTML =
+                `<span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">${jv.status}</span>`;
+
+            // Property details
+            document.getElementById('viewLandJVAddress').textContent = jv.landAddress;
+            document.getElementById('viewLandJVAcreage').textContent = `${jv.acreage} acres`;
+            document.getElementById('viewLandJVLandType').textContent = jv.landType;
+
+            // Financial
+            document.getElementById('viewLandJVPricePerAcre').textContent = jv.pricePerAcre ? `$${jv.pricePerAcre.toLocaleString()}` : '-';
+            document.getElementById('viewLandJVPrice').textContent = `$${jv.askingPrice.toLocaleString()}`;
+
+            // Matched buyer section
+            const matchedBuyerSection = document.getElementById('viewLandJVMatchedBuyerSection');
+            if (jv.matchedBuyer) {
+                matchedBuyerSection.classList.remove('hidden');
+                document.getElementById('viewLandJVBuyerCompany').textContent = jv.matchedBuyer.company;
+                document.getElementById('viewLandJVBuyerContact').textContent = jv.matchedBuyer.name;
+            } else {
+                matchedBuyerSection.classList.add('hidden');
+            }
+
+            // Notes section
+            const notesSection = document.getElementById('viewLandJVNotesSection');
+            if (jv.notes && jv.notes.trim()) {
+                notesSection.classList.remove('hidden');
+                document.getElementById('viewLandJVNotes').textContent = jv.notes;
+            } else {
+                notesSection.classList.add('hidden');
+            }
+
+            // Submission date
+            document.getElementById('viewLandJVDate').textContent = new Date(jv.dateSubmitted).toLocaleString();
+
+            // Show modal
+            document.getElementById('landJVViewModal').classList.remove('hidden');
+        }
+
+        function hideLandJVViewModal() {
+            document.getElementById('landJVViewModal').classList.add('hidden');
+            currentLandJVId = null;
+        }
+
+        function editLandJVFromView() {
+            if (!currentLandJVId) return;
+
+            const jv = landJVs.find(j => j.id === currentLandJVId);
+            if (!jv) return;
+
+            const newStatus = prompt('Update status:\n\nOptions: new, contacted, qualified, closed', jv.status);
+
+            if (newStatus && ['new', 'contacted', 'qualified', 'closed'].includes(newStatus.toLowerCase())) {
+                jv.status = newStatus.toLowerCase();
+
+                CloudStorage.saveData('LandLeads', landJVs)
+                    .then(() => {
+                        WFIUtils.showSuccessMessage('Status updated successfully!');
+                        updateLandJVsTable();
+                        updateLandJVsStats();
+                        viewLandJV(currentLandJVId); // Refresh the modal
+                    })
+                    .catch(error => {
+                        console.error('Error updating status:', error);
+                        WFIUtils.showErrorMessage('Error updating status');
+                    });
+            } else if (newStatus) {
+                WFIUtils.showErrorMessage('Invalid status. Use: new, contacted, qualified, or closed');
+            }
+        }
+
+        async function deleteLandJV(id) {
+            if (!confirm('Are you sure you want to delete this land lead?')) return;
+
+            try {
+                landJVs = landJVs.filter(jv => jv.id !== id);
+                await CloudStorage.saveData('LandLeads', landJVs);
+                updateLandJVsTable();
+                updateLandJVsStats();
+                WFIUtils.showSuccessMessage('Land lead deleted successfully');
+            } catch (error) {
+                console.error('Error deleting land lead:', error);
+                WFIUtils.showErrorMessage('Error deleting land lead');
+            }
+        }
+
+        async function refreshLandJVs() {
+            await loadLandJVs();
+            WFIUtils.showSuccessMessage('Land JVs refreshed!');
+        }
+
+        function exportLandJVs() {
+            if (landJVs.length === 0) {
+                WFIUtils.showErrorMessage('No land leads to export');
+                return;
+            }
+
+            const headers = ['First Name', 'Last Name', 'Email', 'Phone', 'Property Address',
+                             'Acreage', 'Land Type', 'Price per Acre', 'Total Asking Price', 'Status', 'Matched Buyer Company',
+                             'Matched Buyer Contact', 'Notes', 'Date Submitted'];
+
+            const rows = landJVs.map(jv => [
+                jv.firstName,
+                jv.lastName,
+                jv.email,
+                jv.phone,
+                jv.landAddress,
+                jv.acreage,
+                jv.landType,
+                jv.pricePerAcre || '',
+                jv.askingPrice,
+                jv.status,
+                jv.matchedBuyer?.company || '',
+                jv.matchedBuyer?.name || '',
+                jv.notes || '',
+                new Date(jv.dateSubmitted).toLocaleString()
+            ]);
+
+            const csvContent = [headers, ...rows].map(row =>
+                row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')
+            ).join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `land_jvs_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+            WFIUtils.showSuccessMessage('Land JVs exported successfully!');
+        }
+
         // Load initial data
         loadSellerLeads();
         loadJointVentures();
+        loadLandJVs();
+        loadLandBuyers();
 
         // Set up real-time listeners
         CloudStorage.onDataChange('SellerLeads', (newLeads) => {
