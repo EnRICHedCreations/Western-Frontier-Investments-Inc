@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, device-scale=1.0">
+    <title>Land Buy Boxes - Western Frontier Investments | Find Cash Buyers for Your Land</title>
+    <meta name="description" content="Browse active land buy boxes from verified cash buyers seeking land in Texas, California, and nationwide. Match your land deals with serious investors.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+
+        .gradient-primary {
+            background: linear-gradient(135deg, #c28a29 0%, #cc5a2d 50%, #c28a29 100%);
+        }
+
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .premium-border {
+            border: 2px solid transparent;
+            background: linear-gradient(white, white) padding-box, linear-gradient(135deg, #c28a29, #cc5a2d) border-box;
+        }
+
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { box-shadow: 0 0 20px rgba(194, 138, 41, 0.4); }
+            to { box-shadow: 0 0 40px rgba(204, 90, 45, 0.8), 0 0 60px rgba(194, 138, 41, 0.4); }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #c28a29, #cc5a2d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-primary': '#c28a29',
+                        'brand-accent': '#cc5a2d',
+                        'brand-dark': '#382518'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-inter bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-14 h-14 gradient-primary rounded-2xl flex items-center justify-center shadow-xl pulse-glow">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <a href="index.html">
+                                <h1 class="font-playfair text-3xl font-bold gradient-text">
+                                    Western Frontier Investments
+                                </h1>
+                                <p class="text-xs text-brand-primary uppercase tracking-wider font-semibold">Land Buy Boxes</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden lg:flex space-x-6 items-center">
+                    <a href="index.html" class="text-gray-700 hover:text-brand-primary transition-all duration-300 font-semibold">Home</a>
+                    <a href="joint-ventures.html" class="text-gray-700 hover:text-brand-primary transition-all duration-300 font-semibold">Joint Ventures</a>
+                    <a href="landbuyboxes.html" class="text-brand-primary hover:text-brand-accent transition-all duration-300 font-semibold">Land Buy Boxes</a>
+                </div>
+
+                <div class="lg:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 p-3 rounded-xl hover:bg-gray-100">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden bg-white shadow-lg">
+            <div class="px-4 py-4 space-y-1">
+                <a href="index.html" class="block text-gray-700 hover:text-brand-primary hover:bg-gray-50 py-3 px-2 rounded-lg">Home</a>
+                <a href="joint-ventures.html" class="block text-gray-700 hover:text-brand-primary hover:bg-gray-50 py-3 px-2 rounded-lg">Joint Ventures</a>
+                <a href="landbuyboxes.html" class="block text-brand-primary hover:bg-brand-primary/10 py-3 px-2 rounded-lg">Land Buy Boxes</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-16 bg-gradient-to-br from-amber-50 via-white to-orange-50/30 overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="absolute top-1/3 left-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl -translate-x-48"></div>
+            <div class="absolute bottom-1/3 right-0 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl translate-x-48"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-playfair font-bold text-brand-dark mb-8">
+                Active <span class="gradient-text">Land Buy Boxes</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12">
+                Connect your land with serious cash buyers actively seeking properties in specific markets and acreage ranges
+            </p>
+
+            <!-- Search and Filter Section -->
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Search State</label>
+                            <input type="text" id="stateSearch" placeholder="TX, CA, FL..."
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                                   onkeyup="filterLandBuyBoxes()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Acreage Range</label>
+                            <select id="acreageFilter" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                                    onchange="filterLandBuyBoxes()">
+                                <option value="">All Acreage</option>
+                                <option value="0-5">Under 5 Acres</option>
+                                <option value="5-20">5 - 20 Acres</option>
+                                <option value="20-50">20 - 50 Acres</option>
+                                <option value="50-100">50 - 100 Acres</option>
+                                <option value="100+">Over 100 Acres</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Land Type</label>
+                            <select id="landTypeFilter" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                                    onchange="filterLandBuyBoxes()">
+                                <option value="">All Land Types</option>
+                                <option value="residential">Residential</option>
+                                <option value="agricultural">Agricultural</option>
+                                <option value="recreational">Recreational</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="ranch">Ranch/Farm</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <button onclick="filterLandBuyBoxes()" class="bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold py-3 px-8 rounded-lg hover:shadow-lg transition-all">
+                            🔍 Search Buy Boxes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Buy Boxes Grid -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8 flex justify-between items-center">
+                <div>
+                    <h2 class="text-3xl font-playfair font-bold text-brand-dark">Available Buy Boxes</h2>
+                    <p class="text-gray-600 mt-2" id="buyBoxCount">Loading active buyers...</p>
+                </div>
+                <button onclick="showSubmitModal()" class="bg-brand-primary text-white px-6 py-3 rounded-lg hover:bg-brand-accent transition-colors font-semibold">
+                    Submit Your Land
+                </button>
+            </div>
+
+            <div id="buyBoxesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Buy boxes will be loaded here -->
+            </div>
+
+            <div id="noBuyBoxes" class="hidden text-center py-12">
+                <div class="text-6xl mb-4">🌳</div>
+                <h3 class="text-2xl font-semibold text-gray-700 mb-2">No matching buy boxes found</h3>
+                <p class="text-gray-600">Try adjusting your search filters</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submit Land Modal -->
+    <div id="submitLandModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-8 m-4 w-full max-w-2xl max-h-screen overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-brand-dark">Submit Your Land</h3>
+                <button onclick="hideSubmitModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <form onsubmit="submitLandLead(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">First Name *</label>
+                        <input type="text" id="leadFirstName" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Last Name *</label>
+                        <input type="text" id="leadLastName" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Email *</label>
+                        <input type="email" id="leadEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Phone *</label>
+                        <input type="tel" id="leadPhone" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">Land Address *</label>
+                    <input type="text" id="leadAddress" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Street Address, City, State, ZIP" required>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Acreage *</label>
+                        <input type="number" id="leadAcreage" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="10" step="0.01" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Asking Price per Acre *</label>
+                        <input type="number" id="leadPrice" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="5000" required>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">Land Type *</label>
+                    <select id="leadLandType" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required>
+                        <option value="">Select Type</option>
+                        <option value="residential">Residential</option>
+                        <option value="agricultural">Agricultural</option>
+                        <option value="recreational">Recreational</option>
+                        <option value="commercial">Commercial</option>
+                        <option value="ranch">Ranch/Farm</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">Additional Details</label>
+                    <textarea id="leadNotes" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Water available, fenced, etc."></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="hideSubmitModal()" class="px-6 py-3 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-3 bg-brand-primary text-white rounded-lg hover:bg-brand-accent transition-colors">
+                        Submit Land
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="js/firebase-config.js"></script>
+
+    <script>
+        let landBuyers = [];
+        let filteredBuyers = [];
+
+        // Load land buyers from Firebase
+        async function loadLandBuyers() {
+            try {
+                landBuyers = await CloudStorage.loadData('LandBuyers', []);
+                // Only show active buyers
+                landBuyers = landBuyers.filter(buyer => buyer.status === 'active');
+                filteredBuyers = landBuyers;
+                console.log('Loaded land buyers:', landBuyers.length);
+                displayBuyBoxes();
+                updateCount();
+            } catch (error) {
+                console.error('Error loading land buyers:', error);
+                document.getElementById('buyBoxCount').textContent = 'Error loading buy boxes. Please refresh.';
+            }
+        }
+
+        // Display buy boxes
+        function displayBuyBoxes() {
+            const grid = document.getElementById('buyBoxesGrid');
+            const noBoxes = document.getElementById('noBuyBoxes');
+
+            if (filteredBuyers.length === 0) {
+                grid.classList.add('hidden');
+                noBoxes.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            noBoxes.classList.add('hidden');
+
+            grid.innerHTML = filteredBuyers.map(buyer => {
+                const landTypesDisplay = buyer.landTypes?.join(', ') || 'Any';
+                const terrainDisplay = buyer.terrainPreference?.join(', ') || 'Any';
+
+                return `
+                    <div class="bg-white rounded-xl shadow-lg hover-lift border border-gray-200 overflow-hidden premium-border">
+                        <div class="gradient-primary p-4 text-white">
+                            <h3 class="text-xl font-playfair font-bold">🔍 Active Land Buyer</h3>
+                            <p class="text-sm opacity-90">Buy Box Criteria Below</p>
+                        </div>
+
+                        <div class="p-6 space-y-3">
+                            <!-- Geographic Criteria -->
+                            <div class="bg-amber-50 p-3 rounded-lg">
+                                <h4 class="font-semibold text-brand-dark mb-2 text-sm">📍 Geographic Criteria</h4>
+                                <div class="space-y-1 text-sm">
+                                    <p><span class="font-medium">Target States:</span> ${buyer.targetStates}</p>
+                                    ${buyer.targetCounties ? `<p><span class="font-medium">Counties:</span> ${buyer.targetCounties}</p>` : ''}
+                                </div>
+                            </div>
+
+                            <!-- Land Specifications -->
+                            <div class="bg-green-50 p-3 rounded-lg">
+                                <h4 class="font-semibold text-brand-dark mb-2 text-sm">🌳 Land Specifications</h4>
+                                <div class="space-y-1 text-sm">
+                                    <p><span class="font-medium">Acreage:</span> ${buyer.minAcreage} - ${buyer.maxAcreage} acres</p>
+                                    ${buyer.preferredAcreage ? `<p><span class="font-medium">Preferred:</span> ${buyer.preferredAcreage} acres</p>` : ''}
+                                    <p><span class="font-medium">Land Types:</span> ${landTypesDisplay}</p>
+                                    ${buyer.terrainPreference && buyer.terrainPreference.length > 0 ? `<p><span class="font-medium">Terrain:</span> ${terrainDisplay}</p>` : ''}
+                                </div>
+                            </div>
+
+                            <!-- Budget & Financial -->
+                            <div class="bg-blue-50 p-3 rounded-lg">
+                                <h4 class="font-semibold text-brand-dark mb-2 text-sm">💰 Budget & Financial</h4>
+                                <div class="space-y-1 text-sm">
+                                    <p class="text-lg font-bold text-brand-primary">$${buyer.minBudget.toLocaleString()} - $${buyer.maxBudget.toLocaleString()}</p>
+                                    ${buyer.pricePerAcre ? `<p><span class="font-medium">Price/Acre:</span> $${buyer.pricePerAcre.toLocaleString()}/acre</p>` : ''}
+                                </div>
+                            </div>
+
+                            ${buyer.notes ? `
+                            <div class="border-t pt-3 mt-3">
+                                <p class="text-sm text-gray-700"><span class="font-semibold">Additional Notes:</span></p>
+                                <p class="text-sm text-gray-600 mt-1">${buyer.notes}</p>
+                            </div>
+                            ` : ''}
+
+                            <button onclick="matchLand(${buyer.id})" class="w-full mt-4 bg-gradient-to-r from-brand-primary to-brand-accent text-white py-3 rounded-lg hover:shadow-lg transition-all font-semibold">
+                                📧 Submit Your Land to This Buyer
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Filter buy boxes
+        function filterLandBuyBoxes() {
+            const stateSearch = document.getElementById('stateSearch').value.trim().toUpperCase();
+            const acreageFilter = document.getElementById('acreageFilter').value;
+            const landTypeFilter = document.getElementById('landTypeFilter').value;
+
+            filteredBuyers = landBuyers.filter(buyer => {
+                // State filter
+                if (stateSearch && !buyer.targetStates.toUpperCase().includes(stateSearch)) {
+                    return false;
+                }
+
+                // Acreage filter
+                if (acreageFilter) {
+                    const [min, max] = acreageFilter.includes('+')
+                        ? [parseInt(acreageFilter), Infinity]
+                        : acreageFilter.split('-').map(Number);
+
+                    // Check if buyer's range overlaps with filter range
+                    if (buyer.maxAcreage < min || buyer.minAcreage > (max || buyer.maxAcreage)) {
+                        return false;
+                    }
+                }
+
+                // Land type filter
+                if (landTypeFilter && !buyer.landTypes.includes(landTypeFilter)) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            displayBuyBoxes();
+            updateCount();
+        }
+
+        // Update count
+        function updateCount() {
+            document.getElementById('buyBoxCount').textContent = `${filteredBuyers.length} active buyer${filteredBuyers.length === 1 ? '' : 's'}`;
+        }
+
+        // Match land to buyer
+        function matchLand(buyerId) {
+            // Store the selected buyer ID
+            sessionStorage.setItem('selectedBuyerId', buyerId);
+            showSubmitModal();
+        }
+
+        // Show/hide submit modal
+        function showSubmitModal() {
+            document.getElementById('submitLandModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideSubmitModal() {
+            document.getElementById('submitLandModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            sessionStorage.removeItem('selectedBuyerId');
+        }
+
+        // Submit land lead
+        async function submitLandLead(event) {
+            event.preventDefault();
+
+            const selectedBuyerId = sessionStorage.getItem('selectedBuyerId');
+            const matchedBuyer = selectedBuyerId ? landBuyers.find(b => b.id == selectedBuyerId) : null;
+
+            const acreage = parseFloat(document.getElementById('leadAcreage').value);
+            const pricePerAcre = parseInt(document.getElementById('leadPrice').value);
+
+            const leadData = {
+                id: Date.now(),
+                firstName: document.getElementById('leadFirstName').value,
+                lastName: document.getElementById('leadLastName').value,
+                email: document.getElementById('leadEmail').value,
+                phone: document.getElementById('leadPhone').value,
+                landAddress: document.getElementById('leadAddress').value,
+                acreage: acreage,
+                pricePerAcre: pricePerAcre,
+                askingPrice: acreage * pricePerAcre,
+                landType: document.getElementById('leadLandType').value,
+                notes: document.getElementById('leadNotes').value || '',
+                matchedBuyer: matchedBuyer ? {
+                    id: matchedBuyer.id,
+                    name: matchedBuyer.name,
+                    company: matchedBuyer.company
+                } : null,
+                dateSubmitted: new Date().toISOString(),
+                status: 'new',
+                type: 'land-lead'
+            };
+
+            try {
+                // Load existing leads
+                const existingLeads = await CloudStorage.loadData('LandLeads', []);
+                existingLeads.push(leadData);
+                await CloudStorage.saveData('LandLeads', existingLeads);
+
+                WFIUtils.showSuccessMessage('🎉 Thank you! Your land has been submitted. We\'ll contact you within 24 hours.');
+
+                // Reset form
+                event.target.reset();
+                hideSubmitModal();
+            } catch (error) {
+                console.error('Error submitting land lead:', error);
+                WFIUtils.showErrorMessage('There was an error submitting your land. Please try again or call us directly.');
+            }
+        }
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Load data on page load
+        window.addEventListener('DOMContentLoaded', loadLandBuyers);
+    </script>
+</body>
+</html>
